@@ -1,67 +1,111 @@
+import { Routes, Route, Navigate } from 'react-router-dom'
+
+import LandingPage from './pages/LandingPage'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Dashboard from './pages/Dashboard'
+import ResumeAI from './pages/ResumeAI'
+import SkillGap from './pages/SkillGap'
+import Jobs from './pages/Jobs'
+
+
+// ================= PROTECTED ROUTE =================
+
+function ProtectedRoute({ children }) {
+  const user = localStorage.getItem('user')
+
+  if (!user) {
+    return <Navigate to="/login" replace />
+  }
+
+  return children
+}
+
+
+// ================= APP =================
+
 function App() {
   return (
-    <div>
-      <nav>
-        <h2>CareerForge AI</h2>
+    <Routes>
 
-        <div>
-          <a href="#">Home</a>
-          <a href="#">Features</a>
-          <a href="#">About</a>
-          <button>Get Started</button>
-        </div>
-      </nav>
+      {/* ================= LANDING PAGE ================= */}
 
-      <section className="hero">
-        <h1>Build Your Career With AI</h1>
+      <Route
+        path="/"
+        element={<LandingPage />}
+      />
 
-        <p>
-          Your intelligent career companion for resumes, skills, and jobs.
-        </p>
 
-        <button>Get Started</button>
-      </section>
+      {/* ================= AUTHENTICATION ================= */}
 
-      <section className="features">
-        <h2>What We Can Do</h2>
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-        <div className="feature-container">
-          <div className="feature-card">
-            <h3>Resume AI</h3>
-            <p>
-              Analyze your resume and get personalized suggestions to improve it.
-            </p>
-          </div>
+      <Route
+        path="/signup"
+        element={<Signup />}
+      />
 
-          <div className="feature-card">
-            <h3>Skill Gap Analysis</h3>
-            <p>
-              Discover the skills you need to develop for your dream career.
-            </p>
-          </div>
 
-          <div className="feature-card">
-            <h3>Job Recommendations</h3>
-            <p>
-              Find job opportunities that match your skills and career goals.
-            </p>
-          </div>
-        </div>
-      </section>
-      <section className="about">
-  <h2>About CareerForge AI</h2>
+      {/* ================= DASHBOARD ================= */}
 
-  <p>
-    CareerForge AI helps students and job seekers build better careers
-    using artificial intelligence. From resume improvement to skill-gap
-    analysis and job recommendations, CareerForge AI brings everything
-    together in one place.
-  </p>
-</section>
-         <footer>
-        <p>© 2026 CareerForge AI. All rights reserved.</p>
-      </footer>
-    </div>
-  );
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/* ================= RESUME AI ================= */}
+
+      <Route
+        path="/resume-ai"
+        element={
+          <ProtectedRoute>
+            <ResumeAI />
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/* ================= SKILL GAP ================= */}
+
+      <Route
+        path="/skill-gap"
+        element={
+          <ProtectedRoute>
+            <SkillGap />
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/* ================= JOBS ================= */}
+
+      <Route
+        path="/jobs"
+        element={
+          <ProtectedRoute>
+            <Jobs />
+          </ProtectedRoute>
+        }
+      />
+
+
+      {/* ================= UNKNOWN URL ================= */}
+
+      <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+      />
+
+    </Routes>
+  )
 }
-export default App;
+
+export default App    
