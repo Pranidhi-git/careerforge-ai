@@ -23,7 +23,7 @@ function Signup() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch('https://careerforge-ai-2w0t.onrender.com/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -35,7 +35,7 @@ function ResumeAI() {
       formData.append('resume', file)
 
       const response = await fetch(
-        'http://localhost:5000/api/resume/analyze',
+        'https://careerforge-ai-2w0t.onrender.com/api/resume/analyze',
         {
           method: 'POST',
           body: formData,
